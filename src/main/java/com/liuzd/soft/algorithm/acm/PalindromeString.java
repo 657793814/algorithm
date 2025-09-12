@@ -187,15 +187,8 @@ public class PalindromeString {
             if (chars[i] >= '0' && chars[i] <= '9') {
                 //System.out.println("ret:" + ret);
                 int tmp = chars[i] - '0';
-                if (signal >= 0) {
-                    if (ret > Integer.MAX_VALUE / 10 || (ret == Integer.MAX_VALUE / 10 && tmp > 7)) {
-                        return Integer.MAX_VALUE;
-                    }
-                } else {
-                    //这里要取等，因为正数运算如果是8，又越界了
-                    if (ret > Integer.MAX_VALUE / 10 || (ret == Integer.MAX_VALUE / 10 && tmp >= 8)) {
-                        return Integer.MIN_VALUE;
-                    }
+                if (ret > Integer.MAX_VALUE / 10 || (ret == Integer.MAX_VALUE / 10 && tmp > 7)) {
+                    return signal >= 0 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
                 }
                 ret = ret * 10 + tmp;
             } else if (chars[i] == '-' || chars[i] == '+') {
