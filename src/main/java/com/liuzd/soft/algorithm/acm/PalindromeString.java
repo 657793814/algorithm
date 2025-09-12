@@ -163,6 +163,54 @@ public class PalindromeString {
 
     }
 
+    /**
+     * 8. 字符串转换整数 (atoi)
+     * 请你来实现一个 myAtoi(string s) 函数，使其能将字符串转换成一个 32 位有符号整数（类似 C/C++ 中的 atoi 函数）。
+     * 函数 myAtoi(string s) 的算法如下：
+     * 读入字符串并丢弃无用的前导空格
+     * 检查下一个字符（假设还未到字符末尾）为正还是负号，读取该字符（如果有）。 确定最终结果是负数还是正数。 如果两者都不存在，则假定结果为正。
+     * <p>
+     * 0 <= s.length <= 200
+     * s 由英文字母（大写和小写）、数字（0-9）、' '、'+'、'-' 和 '.' 组成
+     * 2.147483648E9
+     * 21474836460
+     */
+    public static int myAtoi(String s) {
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+        char[] chars = s.trim().toCharArray();
+        int len = chars.length;
+        int signal = 0;  // 0表示无符号，1表示正数，-1表示负数
+        int ret = 0;
+        for (int i = 0; i < len; i++) {
+            if (chars[i] >= '0' && chars[i] <= '9') {
+                //System.out.println("ret:" + ret);
+                int tmp = chars[i] - '0';
+                if (signal >= 0) {
+                    if (ret > Integer.MAX_VALUE / 10 || (ret == Integer.MAX_VALUE / 10 && tmp > 7)) {
+                        return Integer.MAX_VALUE;
+                    }
+                } else {
+                    //这里要取等，因为正数运算如果是8，又越界了
+                    if (ret > Integer.MAX_VALUE / 10 || (ret == Integer.MAX_VALUE / 10 && tmp >= 8)) {
+                        return Integer.MIN_VALUE;
+                    }
+                }
+                ret = ret * 10 + tmp;
+            } else if (chars[i] == '-' || chars[i] == '+') {
+                if (i == 0) {
+                    signal = chars[i] == '-' ? -1 : 1;
+                } else {  // eg: 123+1
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+        return signal == 0 ? ret : signal * ret;
+    }
+
     public static void main(String[] args) {
         // 测试更多用例
 //        System.out.println("Manacher算法结果：" + maxPalindromeStringManacher("babad"));
@@ -173,7 +221,11 @@ public class PalindromeString {
 
 //        System.out.println(isPalindrome(121));
 //        System.out.println(resolveInt(123));
-        System.out.println(reverseInt(1534236469));
+//        System.out.println(reverseInt(1534236469));
+//        System.out.println(myAtoi("   -042"));
+//        System.out.println(myAtoi("21474836460"));
+        System.out.println(myAtoi("-21474836482"));
+//        System.out.println(myAtoi("   -91283472332"));
     }
 }
 
