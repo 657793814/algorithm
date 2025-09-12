@@ -1,5 +1,7 @@
 package com.liuzd.soft.algorithm.utils;
 
+import com.liuzd.soft.algorithm.acm.NodeReverse;
+
 /**
  * @author: liuzd
  * @date: 2025/9/11
@@ -21,6 +23,14 @@ public class PrintUtils {
                 System.out.print(array[i][j] + " ");
             }
             System.out.println();
+        }
+        System.out.println();
+    }
+
+    public static void printNode(NodeReverse.ListNode node) {
+        while (node != null) {
+            System.out.print(node.val + " ");
+            node = node.next;
         }
         System.out.println();
     }
