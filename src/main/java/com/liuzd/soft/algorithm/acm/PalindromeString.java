@@ -129,6 +129,37 @@ public class PalindromeString {
 
     }
 
+    /**
+     * 给你一个 32 位的有符号整数 x ，返回将 x 中的数字部分反转后的结果。
+     * 如果反转后整数超过 32 位的有符号整数的范围 [−pow(2,31),  pow(2,31) − 1] ，就返回 0。
+     * 假设环境不允许存储 64 位整数（有符号或无符号）。
+     * Math.pow(2, 31) = 2.147483648E9
+     *
+     * @param x
+     * @return
+     */
+    public static int reverseInt(int x) {
+        int res = 0;
+        int flag = Integer.MAX_VALUE / 10;  // 214748364
+        while (x != 0) {
+            //每次取末尾数字
+            int tmp = x % 10;
+            //判断是否 大于 最大32位整数
+            if (res > flag || (res == flag && tmp > 7)) {
+                return 0;
+            }
+            //判断是否 小于 最小32位整数
+            if (res < -flag || (res == -flag && tmp < -8)) {
+                return 0;
+            }
+
+            res = res * 10 + tmp;
+            x /= 10;
+        }
+        return res;
+
+    }
+
     public static void main(String[] args) {
         // 测试更多用例
 //        System.out.println("Manacher算法结果：" + maxPalindromeStringManacher("babad"));
@@ -137,8 +168,9 @@ public class PalindromeString {
 //        System.out.println("Manacher算法结果：" + maxPalindromeStringManacher("ac"));
 //        System.out.println("Manacher算法结果：" + maxPalindromeStringManacher("1232123242321232"));
 
-        System.out.println(isPalindrome(121));
-        System.out.println(resolveInt(123));
+//        System.out.println(isPalindrome(121));
+//        System.out.println(resolveInt(123));
+        System.out.println(reverseInt(1534236469));
     }
 }
 
