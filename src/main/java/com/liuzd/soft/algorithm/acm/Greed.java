@@ -32,10 +32,12 @@ public class Greed {
         }
 
         int max = nums[start];
-        int p = nums[1 + start]; //存储前一个位置的max值
-        for (int i = 2 + start; i < (len + start); i++) {
-            max = Math.max((nums[i - 2] + nums[i]), p);
-            p = max;
+        int p = nums[start]; //存储前2个位置的max值
+        int q = Math.max(nums[start], nums[start + 1]); //存储前1个位置的max值
+        for (int i = 2 + start; i < (len + start); i++) {  //从第三个位置开始滑动
+            max = Math.max((p + nums[i]), q);
+            p = q;
+            q = max;
         }
         return max;
     }
