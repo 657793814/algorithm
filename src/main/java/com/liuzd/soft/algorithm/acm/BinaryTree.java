@@ -120,6 +120,42 @@ public class BinaryTree {
         return list;
     }
 
+    public static int maxDepth(TreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+        int left = maxDepth(node.left);
+        int right = maxDepth(node.right);
+        return Math.max(left, right) + 1;
+    }
+
+    /**
+     * 二叉树最小深度
+     * 每个根节点记录自己的最小深度
+     *
+     * @param root
+     * @return
+     */
+    public static int minDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        if (root.left == null && root.right == null) {
+            return 1;
+        }
+        int min_depth = Integer.MAX_VALUE;
+        //这里需要左右子节点判空
+        if (root.left != null) {
+            min_depth = Math.min(minDepth(root.left), min_depth);
+        }
+        if (root.right != null) {
+            min_depth = Math.min(minDepth(root.right), min_depth);
+        }
+        return min_depth + 1;
+
+    }
+
     public static void main(String[] args) {
 
         TreeNode node = new TreeNode(1);
